@@ -1,5 +1,7 @@
+//Initializes array that species will be stored
 var speciesArray = [];
 
+//Initializes array containing images for each species
 var speciesImages = {
 	"Human": "https://vignette3.wikia.nocookie.net/starwars/images/8/82/Leiadeathstar.jpg/revision/latest/scale-to-width-down/1000?cb=20071008054722",
 	"Droid": "https://vignette4.wikia.nocookie.net/starwars/images/6/6d/Droid_Counterparts_Fathead.png/revision/latest/scale-to-width-down/250?cb=20161114161434",
@@ -40,7 +42,9 @@ var speciesImages = {
 	"Pau'an": "https://vignette1.wikia.nocookie.net/starwars/images/4/43/Tion_Medon.jpg/revision/latest?cb=20091130182814"
 }
 
+//Populates species[] with the species from SWAPI
 function makeSpeciesArray(url) {
+	//Function is passed the URL of species page, then queries the database
   $.get(url, function(response) {
     for (var i = 0; i < response.results.length; i++) {
       speciesArray.push(
@@ -50,14 +54,17 @@ function makeSpeciesArray(url) {
         }
       );
     }
+    //Recursively calls the makeSpeciesArray function if there is a next species page
     if (response.next !== null) {
       makeSpeciesArray(response.next);
     }
   });
 }
 
+//Populates the dropdown containing the species
 function populateDropdown(){
   console.log(speciesArray.length);
+  //Assigns each species a value equal to its species number in from the SWAPI
   for(var i = speciesArray.length - 1; i >= 0; i--){
     newOption = $("<option>");
     newOption.append(speciesArray[i].name);
@@ -66,21 +73,18 @@ function populateDropdown(){
   }
 }
 
-
-//Function will run whenever the #add-button button is clicked
-
-
 //Determines the characteristics based on the species selected
 function determineCharacteristics(species) {
 
   //Creates a queryURL based on what the buttons 'topic' value is
   var queryURL = speciesArray[species].url;
 
+  //Ajax method to query SWAPI
   $.ajax({
     url: queryURL,
     method: "GET"
   }).done(function(response) {
-
+  	  //Generates random characteristics based on species
       var rmCommas = response.hair_colors.replace(/,/g, "");
       var hairArray = rmCommas.split(" ");
       var randomHairColor = hairArray[(Math.floor(Math.random() * (hairArray.length)))];
@@ -95,7 +99,7 @@ function determineCharacteristics(species) {
       console.log(randomSkinColor);
       var lifespan = response.average_lifespan;
       var height = response.average_height;
-
+      //Outputs characteristics
       $("#haircolor-output").html("Hair Color: " + randomHairColor);
       $("#eyecolor-output").html("Eye Color: " + randomEyeColor);
       $("#skincolor-output").html("Skin Color: " + randomSkinColor);
@@ -136,35 +140,46 @@ function rollForStat(){
 }
 
 $(document).ready(function() {
-
+  //Calls on makeSpeciesArray function and passes it the first page of species
   makeSpeciesArray("https://swapi.co/api/species/?format=json");
+  //Set timeout to give time for the SWAPI query
   setTimeout(populateDropdown, 2000);
-
+  //Whenever a new species is selected from the dropdown, displays its species image
   $("#species").on("change", function(){
     var selectedSpecies = $("#species option:selected").text();
     $("#speciesImage").attr("src", speciesImages[selectedSpecies]);
   });
-
+  //Function that creates a pdf whenever the #add-pdf button is clicked
   $("#add-pdf").on("click", function(){
+  	//Checks if the name input area is not blank
     if($("#name-output").text() !== "Name: "){
+			$("#error-msg").text("");
+			$("#name-error").text("");
       if($("#stats-info tr").length){
         var stats = [];
         $("#stats-info tr td").each(function(index, element){
           stats.push($(this).text());
         });
-       makePDF($("#name-output").text().split(": ")[1], $("#species-output").text().split(": ")[1], $("#haircolor-output").text().split(": ")[1], $("#skincolor-output").text().split(": ")[1], $("#eyecolor-output").text().split(": ")[1], $("#height-output").text().split(": ")[1], $("#lifespan-output").text().split(": ")[1], $("#backstory-output").text().split(": ")[1],
-       stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]);
+       makePDF($("#name-output").text().split(": ")[1], $("#species-output").text().split(": ")[1], $("#haircolor-output").text().split(": ")[1], $("#skincolor-output").text().split(": ")[1], $("#eyecolor-output").text().split(": ")[1], $("#height-output").text().split(": ")[1], $("#lifespan-output").text().split(": ")[1], $("#backstory-output").text().split(": ")[1], stats[0], stats[1], stats[2], stats[3], stats[4], stats[5]);
       }
       else{ // No Stats
         makePDF($("#name-output").text().split(": ")[1], $("#species-output").text().split(": ")[1], $("#haircolor-output").text().split(": ")[1], $("#skincolor-output").text().split(": ")[1], $("#eyecolor-output").text().split(": ")[1], $("#height-output").text().split(": ")[1], $("#lifespan-output").text().split(": ")[1], $("#backstory-output").text().split(": ")[1], "", "", "", "", "", "");
       }
+    }
+    else if($("#name-output").text() == "Name: "){
+    	$("#error-msg").text("You must Create a Character first!");
     }
   });
 
   $("#add-button").on("click", function(event) {
     event.preventDefault();
     if($("#char-name").val() !== ""){
+			$("#name-error").text("");
+			$("#error-msg").text("");
       determineCharacteristics($("#species").val());
+    }
+    else{
+    	$("#name-error").text("You MUST enter a name.");
     }
   });
 
