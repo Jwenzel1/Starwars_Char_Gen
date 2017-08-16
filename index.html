@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Star Wars</title>
+
+	<!--iOS -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+	<link rel="stylesheet" href="assets/css/normalize.css">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Carrois+Gothic" rel="stylesheet">
+</head>
+
+<body >
+
+	<div class="container">
+		<!--this is where the loading screen is -->
+		<div id="load-content">
+			<div id="initialLoad">
+				<div id="loader-wrapper">
+					<div id="loader"></div>
+					<div class="loader-section"></div>
+
+				</div>
+			</div>
+			<!--end of loading screen section-->
+
+
+			<div class="jumbotron" id="header" style="margin-top:20px">
+				<h1 class="text-center">Star Wars Character Generator</h1>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="panel panel-default star-wars">
+
+						<div class="panel-heading" style="background:black;color:#ffd54e;border-color:#ffd54e">
+							<h3 class="panel-title">Enter your Character Information</h3>
+						</div>
+
+						<div class="panel-body">
+							<div class="well star-wars" style="border-top-color:#ffd54e">
+
+								<div class="form-group">
+									<label for="char-name">Name: </label>
+									<input type="text" class="form-control star-wars-input" id="char-name" style="color:#43bfd5">
+								</div>
+
+								<div class="form-group">
+									<label for="dropdown">Species: </label><br>
+									<select class="form-control star-wars-input" id="species" style="color:#43bfd5"></select>
+								</div>
+
+								<div class="form-group">
+									<label for="comment">Backstory: </label>
+									<textarea class="form-control star-wars-input" rows="5" id="backstory" style="color:#43bfd5"></textarea>
+								</div>
+
+								<button type="button" class="btn btn-success" id="add-button">Create a Character!</button>
+								<div id="speciesImageDiv">
+									<img class="img-responsive" id="speciesImage" src="">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+
+					<div class="panel panel-default star-wars">
+
+						<div class="panel-heading" style="background:black;color:#ffd54e;border-color:#ffd54e">
+							<h3 class="panel-title">Character Info</h3>
+						</div>
+						<!--loading screen for the characters-->
+						<div class="panel-body">
+							<div id="charLoad" class="loaded hidden">
+								<div id="loader2-wrapper">
+									<div id="loader2"></div>
+									<div class="loader2-section"></div>
+
+								</div>
+							</div>
+							<!--loading screen ends-->
+
+							<div class="well-star-wars" id="charStats">
+								<p id="name-output">Name: </p>
+								<p id="species-output">Species: </p>
+								<p id="haircolor-output">Hair Color: </p>
+								<p id="eyecolor-output">Eye Color: </p>
+								<p id="skincolor-output">Skin Color: </p>
+								<p id="height-output">Height: </p>
+								<p id="lifespan-output">Avg Lifespan: </p>
+								<p id="backstory-output">Backstory: </p><br>
+
+								<button type="button" class="btn btn-success" id="add-stats">Roll for Stats/Reroll</button><br><br>
+
+								<div class="table-responsive">
+									<table class="table" style="width: 100%;text-align: center">
+
+										<thead>
+											<th class="text-center">STR</th>
+											<th class="text-center">DEX</th>
+											<th class="text-center">CON</th>
+											<th class="text-center">INT</th>
+											<th class="text-center">WIS</th>
+											<th class="text-center">CHA</th>
+										</thead>
+
+										<tbody id="stats-info"></tbody>
+									</table>
+								</div>
+
+								<p class="text-center" style="font-size: 150%"><b>If you are happy with your character, generate a PDF for it!</b></p><br>
+
+								<button type="button" class="btn btn-success" id="add-pdf">Create PDF</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="./assets/javascript/firstPage.js"></script>
+	<script src="./assets/javascript/secondPage.js"></script>
+	<script src="./assets/javascript/pdfMaker.js"></script>
+	<script src="assets/javascript/app.js"></script>
+	<script src="assets/javascript/main.js"></script>
+
+</body>
+
+</html>

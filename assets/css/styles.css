@@ -1,0 +1,51 @@
+body{
+	background-image: url("http://wallpapercave.com/wp/gfwPusm.jpg");
+}
+
+#speciesImage{
+	max-height: 300px;
+	margin: 20px auto 0px auto;
+}
+
+#speciesImageDiv{
+	width: 100%;
+}
+
+@font-face{
+	font-family: StarWars;
+	src: url("Starjedi.ttf");
+}
+.form-group{
+	color: #ffd54e;
+}
+
+#charStats{
+	color: #ffd54e;
+	font-family: 'Carrois Gothic', sans-serif;
+}
+
+#header{
+	background: transparent;
+	border-style: solid;
+	border-color: #ffd54e;
+	color: #ffd54e;
+	font-family: 'StarWars';
+}
+
+.star-wars{
+	background: transparent;
+	border-style: solid;
+	border-color: #ffd54e;
+	font-family: 'Carrois Gothic', sans-serif;
+}
+.well-star-wars{
+	background: black;
+	font-family: 'Carrois Gothic', sans-serif;
+}
+
+.star-wars-input{
+	background: black;
+	border-color: #ffd54e;
+	color: #ffd54e;
+	font-family: 'Carrois Gothic', sans-serif;
+}
