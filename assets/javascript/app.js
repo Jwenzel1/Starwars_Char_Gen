@@ -143,7 +143,7 @@ $(document).ready(function() {
   //Calls on makeSpeciesArray function and passes it the first page of species
   makeSpeciesArray("https://swapi.co/api/species/?format=json");
   //Set timeout to give time for the SWAPI query
-  setTimeout(populateDropdown, 2000);
+  setTimeout(populateDropdown, 2750);
   //Whenever a new species is selected from the dropdown, displays its species image
   $("#species").on("change", function(){
     var selectedSpecies = $("#species option:selected").text();
